@@ -1,0 +1,108 @@
+---
+import { ClientRouter } from "astro:transitions";
+import "@/styles/global.css";
+
+export interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  canonicalURL?: string;
+  author?: string;
+  section: "landing" | "blog";
+  favicon?: string;
+  themeColor?: string;
+  additionalMeta?: any[];
+  additionalScripts?: any[];
+  scrollSmooth?: boolean;
+  lang?: string;
+  dir?: "ltr" | "rtl" | "auto";
+}
+
+const {
+  title,
+  description,
+  ogImage,
+  canonicalURL,
+  author = "Farhan Digital",
+  section,
+  favicon = "/logo.png",
+  themeColor = "#F48120",
+  additionalMeta = [],
+  additionalScripts = [],
+  scrollSmooth = false,
+  lang = "en",
+  dir = "ltr",
+} = Astro.props;
+
+const socialImageURL = ogImage ? new URL(ogImage, Astro.site) : undefined;
+---
+
+<!DOCTYPE html>
+<html lang={lang} dir={dir} class={scrollSmooth ? "scroll-smooth" : ""}>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href={favicon} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content={author} />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {socialImageURL && <meta property="og:image" content={socialImageURL} />}
+    <meta property="og:site_name" content="Farhan Digital" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    {socialImageURL && <meta property="twitter:image" content={socialImageURL} />}
+    
+    <!-- Additional Meta Tags -->
+    <meta name="theme-color" content={themeColor} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Sitemap -->
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    
+    <!-- Additional meta tags from child layouts -->
+    {additionalMeta.map(meta => <Fragment set:html={meta} />)}
+    
+    <!-- View Transitions -->
+    <ClientRouter />
+    
+    <!-- Additional scripts from child layouts -->
+    {additionalScripts.map(script => <Fragment set:html={script} />)}
+  </head>
+  <body data-section={section}>
+    <slot />
+
+    <!-- Universal Analytics - Statcounter -->
+    <script type="text/javascript" is:inline>
+      var sc_project=13180728; 
+      var sc_invisible=1; 
+      var sc_security="0e15f446"; 
+    </script>
+    <script type="text/javascript"
+      src="https://www.statcounter.com/counter/counter.js"
+      async></script>
+  </body>
+</html>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
