@@ -82,10 +82,9 @@ const additionalScripts = [
 <script is:inline>
   const primaryColorScheme = ""; // "light" | "dark"
 
-  // Get theme data from local storage
-  const currentTheme = localStorage.getItem("theme");
-
   function getPreferTheme() {
+    const currentTheme = localStorage.getItem("theme");
+    
     // return theme value in local storage if it is set
     if (currentTheme) return currentTheme;
 
@@ -128,26 +127,30 @@ const additionalScripts = [
     }
   }
 
-  // set early so no page flashes / CSS is made aware
-  reflectPreference();
+  function setThemeFeature() {
+    // Reflect preference to update UI
+    reflectPreference();
 
-  window.onload = () => {
-    function setThemeFeature() {
-      // set on load so screen readers can get the latest value on the button
-      reflectPreference();
-
-      // now this script can find and listen for clicks on the control
-      document.querySelector("#theme-btn")?.addEventListener("click", () => {
+    // Remove existing listener to prevent duplicates
+    const themeBtn = document.querySelector("#theme-btn");
+    if (themeBtn) {
+      // Clone and replace to remove all event listeners
+      const newThemeBtn = themeBtn.cloneNode(true);
+      themeBtn.parentNode.replaceChild(newThemeBtn, themeBtn);
+      
+      // Add fresh event listener
+      newThemeBtn.addEventListener("click", () => {
         themeValue = themeValue === "light" ? "dark" : "light";
         setPreference();
       });
     }
+  }
 
-    setThemeFeature();
+  // Set early so no page flashes / CSS is made aware
+  reflectPreference();
 
-    // Runs on view transitions navigation
-    document.addEventListener("astro:after-swap", setThemeFeature);
-  };
+  // Initialize on page load (works for both direct load and view transitions)
+  document.addEventListener("astro:page-load", setThemeFeature);
 
   // Set theme-color value before page transition
   // to avoid navigation bar color flickering in Android dark mode
@@ -161,7 +164,7 @@ const additionalScripts = [
       ?.setAttribute("content", bgColor);
   });
 
-  // sync with system changes
+  // Sync with system changes
   window
     .matchMedia("(prefers-color-scheme: dark)")
     .addEventListener("change", ({ matches: isDark }) => {
