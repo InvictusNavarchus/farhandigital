@@ -103,6 +103,11 @@ const socialImageURL = ogImage ? new URL(ogImage, Astro.site) : undefined;
   body {
     margin: 0;
     width: 100%;
+  }
+  
+  /* Only apply height: 100% for blog section */
+  html:has(body[data-section="blog"]),
+  body[data-section="blog"] {
     height: 100%;
   }
 </style>
