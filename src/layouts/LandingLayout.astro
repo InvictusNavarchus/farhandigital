@@ -1,0 +1,79 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalURL?: string;
+}
+
+const {
+  title = "Farhan Digital | Affordable High-Performance Websites for Small Businesses",
+  description = "Get professional, blazing-fast websites for your small business with zero hosting costs.",
+  ogImage = "https://farhandigital.id/banner.png",
+  canonicalURL = "https://farhandigital.id/",
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content="freelance web developer, small business websites, Cloudflare websites, affordable web design, high-performance sites, company profiles, landing pages, zero-cost hosting, web development Indonesia" />
+    <meta name="author" content="Farhan Digital" />
+    <meta name="copyright" content="© 2025 Farhan Digital. All Rights Reserved." />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Farhan Digital" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImage} />
+    
+    <!-- Additional Meta Tags -->
+    <meta name="theme-color" content="#F48120" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Local Fonts -->
+    <link rel="stylesheet" href="/fonts.css">
+  </head>
+  <body data-section="landing" class="bg-dark text-text-main font-sans">
+    <slot />
+
+    <!-- Statcounter Analytics -->
+    <script type="text/javascript" is:inline>
+      var sc_project=13180728; 
+      var sc_invisible=1; 
+      var sc_security="0e15f446"; 
+    </script>
+    <script type="text/javascript" is:inline
+      src="https://www.statcounter.com/counter/counter.js"
+      async></script>
+  </body>
+</html>

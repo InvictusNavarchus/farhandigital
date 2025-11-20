@@ -1,0 +1,46 @@
+---
+import Card from '../ui/Card.astro';
+import ProfileIcon from '../ui/icons/ProfileIcon.astro';
+import CodeIcon from '../ui/icons/CodeIcon.astro';
+import CloudIcon from '../ui/icons/CloudIcon.astro';
+
+const servicesData = [
+  {
+    icon: 'ProfileIcon',
+    title: 'Company Profiles',
+    description: 'A professional online presence to showcase your business, services, and portfolio to potential clients.'
+  },
+  {
+    icon: 'CodeIcon',
+    title: 'Landing Pages',
+    description: 'High-converting landing pages designed to capture leads and drive sales for your marketing campaigns.'
+  },
+  {
+    icon: 'CloudIcon',
+    title: 'Cloudflare Stack Solutions',
+    description: 'Custom web solutions built entirely on the Cloudflare stack, from static sites to serverless functions.'
+  },
+];
+---
+
+<section id="services" class="py-20 md:py-32 bg-dark">
+  <div class="container mx-auto px-6">
+    <div class="max-w-4xl mx-auto text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">What I Can Build for You</h2>
+      <p class="text-lg text-text-secondary">
+        I specialize in creating websites that are fast, secure, and cost-effective.
+      </p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {servicesData.map((service) => (
+        <Card class="flex flex-col items-center text-center">
+          {service.icon === 'ProfileIcon' && <ProfileIcon class="h-10 w-10 text-primary mb-4" />}
+          {service.icon === 'CodeIcon' && <CodeIcon class="h-10 w-10 text-primary mb-4" />}
+          {service.icon === 'CloudIcon' && <CloudIcon class="h-10 w-10 text-primary mb-4" />}
+          <h3 class="text-xl font-semibold text-white mb-3">{service.title}</h3>
+          <p class="text-text-secondary">{service.description}</p>
+        </Card>
+      ))}
+    </div>
+  </div>
+</section>

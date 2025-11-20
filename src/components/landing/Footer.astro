@@ -1,0 +1,27 @@
+---
+import Button from '../ui/Button.astro';
+import WhatsappIcon from '../ui/icons/WhatsappIcon.astro';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-dark border-t border-light-dark">
+  <div class="container mx-auto px-6 py-12 text-center">
+    <div class="flex justify-center mb-4">
+      <img src="/logo.png" alt="Farhan Digital Logo" class="h-16 w-16 object-contain" />
+    </div>
+    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+      Ready to Start Your Project?
+    </h2>
+    <p class="text-lg text-text-secondary mb-8 max-w-2xl mx-auto">
+      Let's create something amazing together. Get in touch for a free, no-obligation consultation.
+    </p>
+    <Button href="https://link.farhandigital.id/whatsapp" size="lg" target="_blank" rel="noopener noreferrer">
+      <WhatsappIcon class="h-6 w-6 mr-3" />
+      Contact Me on WhatsApp
+    </Button>
+    <div class="mt-12 text-text-secondary">
+      <p>&copy; {currentYear} Farhan Digital. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,122 @@
+@import "tailwindcss";
+@import "./typography.css";
+
+/* ===== Custom Variant for Dark Mode ===== */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* ===== CSS Variables for Blog Theme Colors ===== */
+:root,
+html[data-theme="light"] {
+  --background: #fdfdfd;
+  --foreground: #282728;
+  --accent: #006cac;
+  --muted: #e6e6e6;
+  --border: #ece9e9;
+}
+
+html[data-theme="dark"] {
+  --background: #212737;
+  --foreground: #eaedf3;
+  --accent: #ff6b01;
+  --muted: #343f60;
+  --border: #ab4b08;
+}
+
+/* ===== Tailwind v4 Theme Configuration ===== */
+@theme {
+  /* Landing Page Colors */
+  --color-primary: #F48120;
+  --color-primary-dark: #D66A0E;
+  --color-secondary: #0984E3;
+  --color-dark: #121212;
+  --color-light-dark: #1E1E1E;
+  --color-text-main: #E0E0E0;
+  --color-text-secondary: #BDBDBD;
+
+  /* Blog Colors (mapped from CSS variables) */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  /* Typography */
+  --font-sans: "Inter", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* ===== Base Styles ===== */
+@layer base {
+  /* Blog-specific base styles */
+  * {
+    @apply border-border outline-accent/75;
+    scrollbar-width: auto;
+    scrollbar-color: var(--color-muted) transparent;
+  }
+
+  html {
+    @apply overflow-y-scroll scroll-smooth;
+  }
+
+  body {
+    @apply flex min-h-svh flex-col;
+  }
+
+  /* Blog body styles (applied via data-section attribute) */
+  body[data-section="blog"] {
+    @apply bg-background font-mono text-foreground selection:bg-accent/75 selection:text-background;
+  }
+
+  /* Landing page body styles (default) */
+  body[data-section="landing"] {
+    @apply bg-dark text-text-main font-sans;
+  }
+
+  a,
+  button {
+    @apply outline-offset-1 outline-accent focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  /* Blog section and footer max-width */
+  body[data-section="blog"] section,
+  body[data-section="blog"] footer {
+    @apply mx-auto max-w-app px-4;
+  }
+}
+
+/* ===== Custom Utilities ===== */
+@utility max-w-app {
+  @apply max-w-3xl;
+}
+
+@utility fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* ===== Keyframes ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Blog-specific Styles ===== */
+.active-nav {
+  @apply underline decoration-wavy decoration-2 underline-offset-4;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 1rem;
+}
