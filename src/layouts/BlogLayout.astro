@@ -125,6 +125,20 @@ const additionalScripts = [
         .querySelector("meta[name='theme-color']")
         ?.setAttribute("content", bgColor);
     }
+
+    // Sync Giscus theme
+    syncGiscusTheme();
+  }
+
+  function syncGiscusTheme() {
+    const giscusFrame = document.querySelector("iframe.giscus-frame");
+    if (giscusFrame) {
+      const theme = themeValue === "dark" ? "dark" : "light";
+      giscusFrame.contentWindow?.postMessage(
+        { giscus: { setConfig: { theme } } },
+        "https://giscus.app"
+      );
+    }
   }
 
   function setThemeFeature() {

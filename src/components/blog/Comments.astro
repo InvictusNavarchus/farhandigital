@@ -1,0 +1,40 @@
+<section id="giscus-comments" class="mt-8"></section>
+
+<script is:inline>
+  // Dynamically load Giscus with the correct theme
+  function loadGiscus() {
+    // Get theme from document attribute (set by BlogLayout's theme manager)
+    const theme = document.firstElementChild.getAttribute("data-theme") || "light";
+    const container = document.getElementById("giscus-comments");
+    
+    if (!container) return;
+
+    // Clear any existing Giscus content
+    container.innerHTML = "";
+
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.setAttribute("data-repo", "InvictusNavarchus/farhandigital");
+    script.setAttribute("data-repo-id", "R_kgDOQZc_Ng");
+    script.setAttribute("data-category", "Giscus");
+    script.setAttribute("data-category-id", "DIC_kwDOQZc_Ns4CyBf8");
+    script.setAttribute("data-mapping", "pathname");
+    script.setAttribute("data-strict", "0");
+    script.setAttribute("data-reactions-enabled", "1");
+    script.setAttribute("data-emit-metadata", "1");
+    script.setAttribute("data-input-position", "top");
+    script.setAttribute("data-theme", theme);
+    script.setAttribute("data-lang", "en");
+    script.setAttribute("data-loading", "lazy");
+    script.setAttribute("crossorigin", "anonymous");
+    script.async = true;
+
+    container.appendChild(script);
+  }
+
+  // Load on initial page load
+  loadGiscus();
+
+  // Reload Giscus on page transitions with correct theme
+  document.addEventListener("astro:after-swap", loadGiscus);
+</script>
