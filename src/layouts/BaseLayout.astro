@@ -82,6 +82,10 @@ const socialImageURL = ogImage ? new URL(ogImage, Astro.site) : undefined;
     
     <!-- Additional scripts from child layouts -->
     {additionalScripts.map(script => <Fragment set:html={script} />)}
+
+    <!-- Umami Analytics Tracking Script -->
+    <script is:inline defer src="https://cloud.umami.is/script.js" data-website-id="4a6ba2f4-8320-4b74-ac21-c62709de17ae">
+    </script>
   </head>
   <body data-section={section}>
     <slot />
