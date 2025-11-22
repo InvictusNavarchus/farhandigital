@@ -1,0 +1,10 @@
+/*
+  # Security headers
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 0
+  Referrer-Policy: strict-origin-when-cross-origin
+  
+  Permissions-Policy: browsing-topics=(), geolocation=(), microphone=(), camera=()
+  
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cloud.umami.is https://www.statcounter.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: http:; font-src 'self' data:; connect-src 'self' https://cloud.umami.is https://www.statcounter.com https://c.statcounter.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';
